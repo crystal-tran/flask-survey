@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1> Survey Title Should Go Here</h1>
+<!-- Use jinja block like survey.title to retrieve title -->
+  <h1> {{ title }} </h1>
   <p>
-    Survey Instructions Should Go Here
+    <!-- Use jinja like survey.instructiosn to retrieve instructions -->
+    {{ instructions }}
   </p>
 
   <!--
