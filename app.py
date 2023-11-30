@@ -28,3 +28,27 @@ def start_survey():
 
     )
 
+
+@app.post('/begin')
+def handle_start_button():
+    """When user hits start button, redirects to start of questions."""
+    return redirect ("/questions/0")
+
+
+@app.get('/questions/<int:question_num>')
+def question_router(question_num):
+    """Grabs desired route and sends user to desired question."""
+
+
+    question = survey.questions[question_num]
+
+    # Grab choices for question
+
+    # loop in question.html via Jinja loop for those choicces
+
+    return render_template(
+        "question.html",
+        question=question
+
+    )
+
