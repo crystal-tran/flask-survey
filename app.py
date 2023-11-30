@@ -13,7 +13,6 @@ debug = DebugToolbarExtension(app)
 #session: used to store information from a previous request, relies
 # on the super key
 
-RESPONSES = []
 
 @app.get("/")
 def start_survey():
@@ -42,13 +41,20 @@ def question_router(question_num):
 
     question = survey.questions[question_num]
 
-    # Grab choices for question
 
     # loop in question.html via Jinja loop for those choicces
 
     return render_template(
         "question.html",
-        question=question
-
+        question=question,
+        question_num=question_num
     )
+
+@app.post('/answer')
+def get_answer():
+    session['answer'] = request.form['answer']
+    print("session is:", session)
+
+    return redirect("/questions/1")
+
 
