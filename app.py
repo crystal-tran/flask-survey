@@ -55,6 +55,19 @@ def get_answer():
     session['answer'] = request.form['answer']
     print("session is:", session)
 
-    return redirect("/questions/1")
+    question_num = int(request.form['question-num'])
+    print('question_num is', question_num)
+    next_question_num = question_num + 1
 
+    if survey.questions.get(next_question_num, False):
+        # If there is another question, send user to it
+        return redirect(f"/questions/{next_question_num}")
+    else:
+        # Otherwise, redirect user to thank-you
+        return redirect('/completion.html')
+
+
+@app.get('/completion.html')
+def thank_user():
+    
 

@@ -3,6 +3,14 @@
 {% block content %}
 
 <!-- Page that gets redirected to -->
-  <h1>Thanks for completing this survey!</h1>
+  <h1>Thanks so much for completing this survey!</h1>
+  <ul>
+    {% for item in session.items %}
+    <!-- step 1: figure out how to access questions by indexing-->
+    <!-- step 2: figure out how to access answers by session information-->
+    <!-- step 3ish: update syntax in for loop-->
 
+      <li>{{ the question at that index }}{{ the response }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}
