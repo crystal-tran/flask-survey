@@ -22,7 +22,7 @@ def start_survey():
 
     return render_template(
         "survey_start.html",
-        title=title,
+        title=title, # could do title=survey.title here
         instructions=instructions
     )
 
@@ -34,6 +34,12 @@ def handle_start_button():
 
     # add session.clear() when making the post request
     session.clear()
+    # good to think about for later: for our uses this is okay but we might
+    # want to have an app where we store some data and only get rid of the
+    # survey answers.
+
+    # Check out their solution because we implemented sessions prior to flow
+    # of assignment
 
     return redirect ("/questions/0")
 
@@ -41,7 +47,8 @@ def handle_start_button():
 @app.get('/questions/<int:question_num>')
 def question_router(question_num):
     """Grabs desired route and sends user to associated question."""
-
+    # "Render the html for the question specified in the route" -- more
+    # accurate docstring (we're not sending the user anywhere)
     question = survey.questions[question_num]
 
     return render_template(
@@ -66,6 +73,8 @@ def get_answer():
 
     next_question_num = question_num + 1
     num_questions = len(survey.questions) - 1
+    # num_questions currently isn't an accurate variable name (could just do
+    # calculation in the if statement)
 
     if next_question_num <= num_questions:
         return redirect(f"/questions/{next_question_num}")
@@ -81,5 +90,5 @@ def thank_user():
     return render_template(
         'completion.html',
         questions=survey.questions
-                           )
+    ) # Remember to line ')' up with return statement
 
