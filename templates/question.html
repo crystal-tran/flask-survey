@@ -5,8 +5,7 @@
 
   <form action="/answer" method="POST">
     {% for choice in question.choices %}
-      <!-- you should have one item like this for every choice -->
-      <!-- iterate through questions using jinja to create list -->
+
       <p>
         <input
             type="radio"
@@ -15,6 +14,7 @@
         {{ choice }}
         <input type="hidden" name="question-num" value="{{ question_num }}">
       </p>
+      
     {% endfor %}
     <button>Continue</button>
   </form>

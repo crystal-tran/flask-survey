@@ -2,19 +2,21 @@
 
 {% block content %}
 
-<!-- Page that gets redirected to -->
   <h1>Thanks so much for completing this survey!</h1>
   <ul>
-    {% for answer in session.values() %}
-    <!-- questions is a list of question instances -->
 
-    <!-- loop.index jinja property that automatically incremenets
-    whenever for every jinja iteration -->
+    {% for answer in session.values() %}
+
       <li>{{ questions[loop.index0].prompt }} {{ answer }}</li>
-    <!-- question.prompt gives us back a question -->
 
     {% endfor %}
+
   </ul>
 {% endblock %}
 
+<!--old strategy:-->
 <!-- {{ question.prompt }}{{ session[questions.index(question)]}} -->
+
+<!--Note on jinja:-->
+<!-- loop.index jinja property that automatically incremenets
+whenever for every jinja iteration -->
