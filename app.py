@@ -31,6 +31,8 @@ def start_survey():
 @app.post('/begin')
 def handle_start_button():
     """When user hits start button, redirects to start of questions."""
+    session.clear()
+    #add session.clear() when making the post request
     return redirect ("/questions/0")
 
 
@@ -52,22 +54,42 @@ def question_router(question_num):
 
 @app.post('/answer')
 def get_answer():
-    session['answer'] = request.form['answer']
+    question_num = int(request.form['question-num'])
+    #Have a dictionary with a single key and that key can contain a list
+    # answerList = []
+    # answerList.append(request.form['answer'])
+    # session["answer"] = answerList
+    session[f"{question_num}"] = request.form['answer']
+    # session[f"{survey.questions[question_num]}"] = request.form['answer']
     print("session is:", session)
 
-    question_num = int(request.form['question-num'])
     print('question_num is', question_num)
     next_question_num = question_num + 1
 
-    if survey.questions.get(next_question_num, False):
-        # If there is another question, send user to it
+    #determine length of question list and set that to a vari,
+    # have a if statement where if the next_question_num > length, redirect
+
+    num_questions = len(survey.questions) - 1
+    print("num of questions:", num_questions)
+
+    if next_question_num <= num_questions:
         return redirect(f"/questions/{next_question_num}")
     else:
-        # Otherwise, redirect user to thank-you
         return redirect('/completion.html')
+
+    # if survey.questions.get(next_question_num, False):
+    #     # If there is another question, send user to it
+    #     return redirect(f"/questions/{next_question_num}")
+    # else:
+    #     # Otherwise, redirect user to thank-you
+    #     return redirect('/completion.html')
 
 
 @app.get('/completion.html')
 def thank_user():
-    
+    print("session items is:",session.items())
+    return render_template(
+        'completion.html',
+        questions=survey.questions
+                           )
 
